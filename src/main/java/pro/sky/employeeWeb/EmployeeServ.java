@@ -1,9 +1,12 @@
 package pro.sky.employeeWeb;
 
-public interface EmployeeServ {
-    Employee addEmployee(String firstName, String lastName);
+import org.springframework.stereotype.Service;
 
-    Employee addEmployee(Employee employee);
+
+public interface EmployeeServ  {
+    Employee add(String firstName, String lastName);
+
+    Employee add(Employee employee);
 
     Employee remove(String firstName, String lastName);
 

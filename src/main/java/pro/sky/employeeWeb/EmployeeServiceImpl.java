@@ -5,23 +5,21 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeServiceImpl implements EmployeeServ {
 
-    private Employee[] employees;
+    private final Employee[] employees;
     private int size;
 
-    public EmployeeServiceImpl() {
-        employees=new Employee[10];
+    public EmployeeServiceImpl() {employees=new Employee[10];}
 
 
-    }
 
     @Override
-    public Employee addEmployee(String firstName, String lastName) {
+    public Employee add(String firstName, String lastName) {
         Employee newEmployee = new Employee(firstName, lastName);
-        return addEmployee(newEmployee);
+        return add(newEmployee);
     }
 
     @Override
-    public Employee addEmployee(Employee employee) {
+    public Employee add(Employee employee) {
         if (size == employees.length) throw new EmployeeBookOverFlowException();
         int index = indexOf(employee);
         if (index != -1) {
