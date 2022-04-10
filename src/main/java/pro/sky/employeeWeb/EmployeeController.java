@@ -15,12 +15,12 @@ public class EmployeeController {
     public EmployeeController(EmployeeServiceImpl employeeService) {
         this.employeeService = employeeService;
     }
-///
+
 
     @GetMapping("/add")
     public String add(@RequestParam String firstName, @RequestParam String lastName){
         Employee result=employeeService.add(firstName,lastName);
-        return generateMessage(result,"создан");}
+        return generateMessage(result,"Создан");}
     @GetMapping("/remove")
         public String remove(@RequestParam String firstName,@RequestParam  String lastName){
         Employee result=employeeService.remove(firstName,lastName);
