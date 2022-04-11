@@ -2,8 +2,10 @@ package pro.sky.employeeWeb;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 
-public interface EmployeeServ  {
+
+public interface  EmployeeServ  {
     Employee add(String firstName, String lastName);
 
     Employee add(Employee employee);
@@ -14,5 +16,5 @@ public interface EmployeeServ  {
 
     Employee find(String firstName, String lasName);
 
-    Employee[] findAll();
+   Collection<Employee> findAll();
 }

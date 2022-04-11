@@ -2,14 +2,19 @@ package pro.sky.employeeWeb;
 
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+
 @Service
 public class EmployeeServiceImpl implements EmployeeServ {
 
-    private final Employee[] employees;
-    private int size;
+    private final Set<Employee> employees;
 
-    public EmployeeServiceImpl() {employees=new Employee[10];}
-
+    public EmployeeServiceImpl() {
+        employees = new HashSet<>();
+    }
 
 
     @Override
@@ -20,12 +25,10 @@ public class EmployeeServiceImpl implements EmployeeServ {
 
     @Override
     public Employee add(Employee employee) {
-        if (size == employees.length) throw new EmployeeBookOverFlowException();
-        int index = indexOf(employee);
-        if (index != -1) {
+        if (employees.contains(employee)) {
             throw new EmployeeBookOverFlowException();
         }
-        employees[size++] = employee;
+        employees.add(employee);
         return employee;
 
     }
@@ -37,41 +40,25 @@ public class EmployeeServiceImpl implements EmployeeServ {
     }
 
     @Override
-    public Employee remove(Employee newEmployee) {
-        int index = indexOf(newEmployee);
-        if(index!=-1){
-            Employee result=employees[index];
-            System.arraycopy(employees,index+1,employees,index,size-index);
-            size--;
-            return result;
+    public Employee remove(Employee employee) {
+        if (!employees.contains(employee)) {
+            throw new EmployeeNotFoundException();
         }
-        throw new EmployeeNotFoundException();
-    }
-
-    @Override
-    public Employee find(String firstName,String lasName){
-        Employee newEmployee=new Employee(firstName,lasName);
-        int index=indexOf(newEmployee);
-        if (index!=-1){
-            return employees[index];
-        }
-        throw new EmployeeNotFoundException();
+        employees.remove(employee);
+        return employee;
 
     }
-    @Override
-    public Employee[] findAll(){
-        return employees;
-    }
-    private int indexOf(Employee employee){
-        for (int i = 0; i <size ; i++) {
-            if(employees[i].equals(employee)){
-                return i;
+        @Override
+        public Employee find (String firstName, String lasName){
+            Employee newEmployee = new Employee(firstName, lasName);
+            if (!employees.contains(newEmployee)) {
+                throw new EmployeeNotFoundException();
             }
-            
+            return newEmployee;
+
         }
-        return -1;
+        @Override
+        public Collection<Employee> findAll () {
+            return Collections.unmodifiableSet(employees);
+        }
     }
-
-
-
-}

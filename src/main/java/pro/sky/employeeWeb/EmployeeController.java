@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
+
 @RestController
 @RequestMapping("/employees")
 
@@ -29,7 +31,7 @@ public class EmployeeController {
     public Employee find(@RequestParam String firstName,@RequestParam String lastName){
         return employeeService.find(firstName,lastName);}
     @GetMapping("/all")
-    public Employee[] all(@RequestParam String firstName, @RequestParam String lastName){
+    public Collection <Employee> all(@RequestParam String firstName, @RequestParam String lastName){
         return employeeService.findAll();}
     public String generateMessage(Employee employee, String status){
         return String.format("сотрудник",employee.getLastName(),employee.getFirstName(),status);
