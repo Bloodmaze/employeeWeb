@@ -2,63 +2,57 @@ package pro.sky.employeeWeb;
 
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeServ {
 
-    private final Set<Employee> employees;
+    private final Map<String,Employee> employees;
 
     public EmployeeServiceImpl() {
-        employees = new HashSet<>();
+        employees = new HashMap<>();
     }
 
 
     @Override
     public Employee add(String firstName, String lastName) {
         Employee newEmployee = new Employee(firstName, lastName);
-        return add(newEmployee);
+        if(employees.containsKey(firstName+lastName)){
+            throw new EmployeeBookOverFlowException();
+        }
+        employees.put(firstName+lastName,newEmployee);
+        return newEmployee;
     }
 
     @Override
     public Employee add(Employee employee) {
-        if (employees.contains(employee)) {
-            throw new EmployeeBookOverFlowException();
-        }
-        employees.add(employee);
-        return employee;
+       return null;
 
     }
 
     @Override
     public Employee remove(String firstName, String lastName) {
-        Employee newEmployee = new Employee(firstName, lastName);
-        return remove(newEmployee);
+        if(!employees.containsKey(firstName+lastName)){
+            throw new EmployeeNotFoundException();
+        }
+        return employees.remove(firstName+lastName);
     }
 
     @Override
     public Employee remove(Employee employee) {
-        if (!employees.contains(employee)) {
-            throw new EmployeeNotFoundException();
-        }
-        employees.remove(employee);
-        return employee;
+        return null;
 
     }
         @Override
-        public Employee find (String firstName, String lasName){
-            Employee newEmployee = new Employee(firstName, lasName);
-            if (!employees.contains(newEmployee)) {
+        public Employee find (String firstName, String lastName){
+            if (!employees.containsKey(firstName+lastName)) {
                 throw new EmployeeNotFoundException();
             }
-            return newEmployee;
+            return employees.get(firstName+lastName);
 
         }
         @Override
         public Collection<Employee> findAll () {
-            return Collections.unmodifiableSet(employees);
+            return Collections.unmodifiableCollection(employees.values());
         }
     }
