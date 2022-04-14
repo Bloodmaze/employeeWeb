@@ -7,7 +7,7 @@ import java.util.*;
 @Service
 public class EmployeeServiceImpl implements EmployeeServ {
 
-    private final Map<String,Employee> employees;
+    private final Map<String, Employee> employees;
 
     public EmployeeServiceImpl() {
         employees = new HashMap<>();
@@ -17,25 +17,25 @@ public class EmployeeServiceImpl implements EmployeeServ {
     @Override
     public Employee add(String firstName, String lastName) {
         Employee newEmployee = new Employee(firstName, lastName);
-        if(employees.containsKey(firstName+lastName)){
+        if (employees.containsKey(firstName + lastName)) {
             throw new EmployeeBookOverFlowException();
         }
-        employees.put(firstName+lastName,newEmployee);
+        employees.put(firstName + lastName, newEmployee);
         return newEmployee;
     }
 
     @Override
     public Employee add(Employee employee) {
-       return null;
+        return null;
 
     }
 
     @Override
     public Employee remove(String firstName, String lastName) {
-        if(!employees.containsKey(firstName+lastName)){
+        if (!employees.containsKey(firstName + lastName)) {
             throw new EmployeeNotFoundException();
         }
-        return employees.remove(firstName+lastName);
+        return employees.remove(firstName + lastName);
     }
 
     @Override
@@ -43,16 +43,18 @@ public class EmployeeServiceImpl implements EmployeeServ {
         return null;
 
     }
-        @Override
-        public Employee find (String firstName, String lastName){
-            if (!employees.containsKey(firstName+lastName)) {
-                throw new EmployeeNotFoundException();
-            }
-            return employees.get(firstName+lastName);
 
+    @Override
+    public Employee find(String firstName, String lastName) {
+        if (!employees.containsKey(firstName + lastName)) {
+            throw new EmployeeNotFoundException();
         }
-        @Override
-        public Collection<Employee> findAll () {
-            return Collections.unmodifiableCollection(employees.values());
-        }
+        return employees.get(firstName + lastName);
+
     }
+
+    @Override
+    public Collection<Employee> findAll() {
+        return Collections.unmodifiableCollection(employees.values());
+    }
+}

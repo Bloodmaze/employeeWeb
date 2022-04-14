@@ -9,8 +9,6 @@ import java.util.Collection;
 
 @RestController
 @RequestMapping("/employees")
-
-
 public class EmployeeController {
     private final EmployeeServiceImpl employeeService;
 
@@ -18,28 +16,29 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-//
     @GetMapping("/add")
-    public String add(@RequestParam String firstName, @RequestParam String lastName){
-        Employee result=employeeService.add(firstName,lastName);
-        return generateMessage(result,"Создан");}
+    public String add(@RequestParam String firstName, @RequestParam String lastName) {
+        Employee result = employeeService.add(firstName, lastName);
+        return generateMessage(result, "Создан");
+    }
+
     @GetMapping("/remove")
-        public String remove(@RequestParam String firstName,@RequestParam  String lastName){
-        Employee result=employeeService.remove(firstName,lastName);
-        return generateMessage(result,"удален");}
+    public String remove(@RequestParam String firstName, @RequestParam String lastName) {
+        Employee result = employeeService.remove(firstName, lastName);
+        return generateMessage(result, "удален");
+    }
+
     @GetMapping("/find")
-    public Employee find(@RequestParam String firstName,@RequestParam String lastName){
-        return employeeService.find(firstName,lastName);}
+    public Employee find(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.find(firstName, lastName);
+    }
+
     @GetMapping("/all")
-    public Collection <Employee> all(@RequestParam String firstName, @RequestParam String lastName){
-        return employeeService.findAll();}
-    public String generateMessage(Employee employee, String status){
-        return String.format("сотрудник",employee.getLastName(),employee.getFirstName(),status);
+    public Collection<Employee> all(@RequestParam String firstName, @RequestParam String lastName) {
+        return employeeService.findAll();
+    }
 
-
-
-
-
-
+    public String generateMessage(Employee employee, String status) {
+        return String.format("сотрудник", employee.getLastName(), employee.getFirstName(), status);
     }
 }

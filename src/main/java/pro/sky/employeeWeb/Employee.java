@@ -4,13 +4,13 @@ import java.util.Objects;
 
 public class Employee {
 
-     String firstName;
-     String lastName;
+    String firstName;
+    String lastName;
 
 
-    public Employee(String firstName,String lastName) {
-        this.firstName=firstName;
-        this.lastName=lastName;
+    public Employee(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Employee() {
