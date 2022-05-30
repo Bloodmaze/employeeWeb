@@ -4,17 +4,34 @@ import java.util.Objects;
 
 public class Employee {
 
-    String firstName;
-    String lastName;
+    private String firstName;
+    private String lastName;
+    private int departmentId;
+    private int salary;
 
 
-    public Employee(String firstName, String lastName) {
+    public Employee(String firstName, String lastName, int departmentId, int salary) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.departmentId = departmentId;
+        this.salary = salary;
     }
+   /* public Employee(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+    }*/
 
     public Employee() {
 
+    }
+
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public int getSalary() {
+        return salary;
     }
 
     public String getFirstName() {

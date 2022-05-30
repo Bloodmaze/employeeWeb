@@ -1,9 +1,11 @@
-package pro.sky.employeeWeb;
+package pro.sky.employeeWeb.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import pro.sky.employeeWeb.Employee;
+import pro.sky.employeeWeb.service.EmployeeServiceImpl;
 
 import java.util.Collection;
 
@@ -17,8 +19,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public String add(@RequestParam String firstName, @RequestParam String lastName) {
-        Employee result = employeeService.add(firstName, lastName);
+    public String add(@RequestParam String firstName, @RequestParam String lastName, @RequestParam Integer departmentId, @RequestParam Integer salary) {
+        Employee result = employeeService.add(firstName, lastName, departmentId, salary);
         return generateMessage(result, "Создан");
     }
 
@@ -34,11 +36,13 @@ public class EmployeeController {
     }
 
     @GetMapping("/all")
-    public Collection<Employee> all(@RequestParam String firstName, @RequestParam String lastName) {
+    public Collection<Employee> all() {
         return employeeService.findAll();
     }
 
     public String generateMessage(Employee employee, String status) {
         return String.format("сотрудник", employee.getLastName(), employee.getFirstName(), status);
     }
-}
+
+
+        }
