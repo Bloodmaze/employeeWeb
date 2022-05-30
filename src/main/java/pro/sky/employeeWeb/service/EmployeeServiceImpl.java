@@ -1,7 +1,9 @@
 package pro.sky.employeeWeb.service;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import pro.sky.employeeWeb.Employee;
+import pro.sky.employeeWeb.exception.AddingAnExistingEmployeeException;
 import pro.sky.employeeWeb.exception.EmployeeBookOverFlowException;
 import pro.sky.employeeWeb.exception.EmployeeNotFoundException;
 
@@ -53,7 +55,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee add(String firstName, String lastName, int departmentId, int salary) {
-        Employee newEmployee = new Employee(firstName, lastName, departmentId, salary);
+        if (!StringUtils.isAlpha(firstName)||!StringUtils.isAlpha(lastName)){
+            throw new AddingAnExistingEmployeeException();
+
+        }
+        Employee newEmployee = new Employee(StringUtils.capitalize(firstName), StringUtils.capitalize(lastName), departmentId, salary);
         if (employees.containsKey(firstName + lastName)) {
             throw new EmployeeBookOverFlowException();
         }
