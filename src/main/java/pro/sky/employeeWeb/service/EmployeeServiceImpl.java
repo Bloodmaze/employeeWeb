@@ -8,7 +8,7 @@ import pro.sky.employeeWeb.exception.EmployeeBookOverFlowException;
 import pro.sky.employeeWeb.exception.EmployeeNotFoundException;
 
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -19,43 +19,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         employees = new HashMap<>();
     }
 
-    @Override
-    public Employee minSalary(int departmentId) {
-
-        return employees.values().stream()
-                .filter(employee -> employee.getDepartmentId() == departmentId)
-                .min(Comparator.comparingInt(Employee::getSalary))
-                .orElseThrow(EmployeeNotFoundException::new);
-
-    }
-    @Override
-    public Employee maxSalary(int departmentId) {
-        return employees.values().stream()
-                .filter(employee -> employee.getDepartmentId() == departmentId)
-                .max(Comparator.comparingInt(Employee::getSalary))
-                .orElseThrow(EmployeeNotFoundException::new);
-    }
-    @Override
-    public List<Employee> allEmployees(int departmentId){
-        return employees.values().stream()
-                .filter(employee -> employee.getDepartmentId()==departmentId)
-                .collect(Collectors.toList());
-
-    }
-    @Override
-    public List<Employee> allEmployee(){
-        return employees.values().stream()
-                .sorted(Comparator.comparing(Employee::getDepartmentId))
-                .collect(Collectors.toList());
-
-    }
-
-
-
 
     @Override
     public Employee add(String firstName, String lastName, int departmentId, int salary) {
-        if (!StringUtils.isAlpha(firstName)||!StringUtils.isAlpha(lastName)){
+        if (!StringUtils.isAlpha(firstName) || !StringUtils.isAlpha(lastName)) {
             throw new AddingAnExistingEmployeeException();
 
         }
@@ -65,11 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         employees.put(firstName + lastName, newEmployee);
         return newEmployee;
-    }
-
-    @Override
-    public Employee add(Employee employee) {
-        return null;
     }
 
 

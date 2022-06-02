@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.employeeWeb.Employee;
+import pro.sky.employeeWeb.service.DepartmentServiceImpl;
 import pro.sky.employeeWeb.service.EmployeeServiceImpl;
 
 import java.util.List;
@@ -12,32 +13,35 @@ import java.util.List;
 @RestController
 @RequestMapping("/departments")
 public class DepartmentController {
-    private final EmployeeServiceImpl employeeService;
+    private final DepartmentServiceImpl departmentService;
 
 
-    public DepartmentController(EmployeeServiceImpl employeeService) {
-        this.employeeService = employeeService;
+    public DepartmentController(DepartmentServiceImpl departmentService) {
+
+        this.departmentService = departmentService;
     }
 
     @GetMapping("/min-salary")
-    public Employee minSalary(@RequestParam Integer departmentId){
-        return employeeService.minSalary(departmentId);
+    public Employee minSalary(@RequestParam Integer departmentId) {
+        return departmentService.minSalary(departmentId);
     }
-    @GetMapping("/max-salary")
-    public Employee maxSalary(@RequestParam int departmentId){
 
-        return employeeService.maxSalary(departmentId);
+    @GetMapping("/max-salary")
+    public Employee maxSalary(@RequestParam int departmentId) {
+
+        return departmentService.maxSalary(departmentId);
     }
 
 
     @GetMapping("/all")
-    public List<Employee> allEmployeers(@RequestParam int departmentId){
+    public List<Employee> allEmployeers(@RequestParam int departmentId) {
 
-        return employeeService.allEmployees(departmentId);
+        return departmentService.allEmployees(departmentId);
     }
-    @GetMapping("/all/grouped")
-    public List<Employee> allEmployeersSort(){
 
-        return employeeService.allEmployee();
+    @GetMapping("/all/grouped")
+    public List<Employee> allEmployeersSort() {
+
+        return departmentService.allEmployee();
     }
 }
